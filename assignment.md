@@ -146,26 +146,30 @@ Of course, these can be done as one or more steps.
 
 1. Count how many tracks belong to the "Hip Hop/Rap" genre
 ```ruby
-# Enter your answer below
-
+rap = Genre.where(name: 'Hip Hop/Rap')
+Track.where(genre: rap).count
 ```
 
 2. Find the most expensive Track that has the MediaType "MPEG audio file".
 ```ruby
-# Enter your answer below
-
+mpeg = MediaType.where(name: 'MPEG audio file')
+Track.where(media_type: mpeg).minimum(:unit_price)
 ```
 
 3. Find the 2 oldest Artists.
 ```ruby
-# Enter your answer below
-
+Artist.order('created_at ASC').limit(2)
 ```
 
 
 4. Find all the Tracks that belong to the 2 most recent Playlist.
 ```ruby
 # Enter your answer below
+p = Playlist.order('created_at DESC').first(2)
 
+p.first.id # 4
+p.last.id  # 3
+
+Track.joins(:playlists).where(:playlists => {id: (3 || 4)})
 ```
 
